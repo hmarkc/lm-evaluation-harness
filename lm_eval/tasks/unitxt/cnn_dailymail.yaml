@@ -1,3 +1,6 @@
 task: cnn_dailymail
 include: unitxt
+training_split: train
+validation_split: validation
+test_split: test
 recipe: card=cards.cnn_dailymail,template=templates.summarization.abstractive.full

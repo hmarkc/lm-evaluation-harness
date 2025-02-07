@@ -68,8 +68,8 @@ class Unitxt(ConfigurableTask):
     def download(self, dataset_kwargs: Optional[Dict[str, Any]] = None) -> None:
         assert_unitxt_installed()
         from unitxt import load_dataset
-
-        self.dataset = load_dataset(self.DATASET_NAME, disable_cache=False)
+        
+        self.dataset = load_dataset(self.DATASET_NAME, use_cache=True)
 
     def has_training_docs(self):
         return "train" in self.dataset
@@ -109,6 +109,7 @@ class Unitxt(ConfigurableTask):
         apply_chat_template: bool = False,
         fewshot_as_multiturn: bool = False,
         chat_template: Optional[Callable] = None,
+        **kwargs,
     ) -> str:
         source = self.doc_to_text(doc)
         if isinstance(source, list):
@@ -134,6 +135,7 @@ class Unitxt(ConfigurableTask):
             part of the document for `doc`.
         """
         kwargs.pop("apply_chat_template", False)  # Not used by unitxt
+        kwargs.pop("chat_template", None)
         return [
             Instance(
                 request_type="generate_until",

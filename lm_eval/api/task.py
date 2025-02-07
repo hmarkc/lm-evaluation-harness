@@ -440,6 +440,7 @@ class Task(abc.ABC):
             total=num_docs,
         ):
             # sample fewshot context #TODO: need to offset doc_id by rank now!
+            
             fewshot_ctx = self.fewshot_context(
                 doc,
                 0 if self.config.num_fewshot is None else self.config.num_fewshot,
